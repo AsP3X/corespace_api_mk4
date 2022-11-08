@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 Reset = "\x1b[0m"
 Bright = "\x1b[1m"
 Dim = "\x1b[2m"
@@ -25,8 +28,9 @@ BgCyan = "\x1b[46m"
 BgWhite = "\x1b[47m"
 
 class serviceLogger {
-  constructor(serviceName) {
+  constructor(serviceName, loggerStorage) {
     this.serviceName = serviceName;
+    this.loggerStorage = loggerStorage;
     this.timestamp = new Date().toISOString();
   }
 
