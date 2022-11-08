@@ -34,6 +34,10 @@ class serviceLogger {
     console.log(`[${this.timestamp}] ${this.serviceName}: ${message}`);
   }
 
+  request(message) {
+    console.log(`${FgMagenta}[${this.timestamp}] ${this.serviceName}: ${message}${Reset}`);
+  }
+
   success(message) {
     console.log(`${FgGreen}[${this.timestamp}] ${this.serviceName}: ${message}${Reset}`);
   }
