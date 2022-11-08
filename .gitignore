@@ -1,7 +1,1 @@
-microservices/healthcheck/node_modules
-microservices/login/node_modules
-microservices/media/node_modules
-microservices/notification/node_modules
-microservices/register/node_modules
-microservices/token/node_modules
-microservices/userdata/node_modules
+microservices/*/node_modules
