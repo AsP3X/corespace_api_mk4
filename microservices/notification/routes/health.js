@@ -6,7 +6,7 @@ const fs = require('fs');
 const Logger = require('../assets/utils/logger');
 
 // Create the logger
-const logger = new Logger("register/health");
+const logger = new Logger("notification/health");
 
 // Importing router
 const router = express.Router();
