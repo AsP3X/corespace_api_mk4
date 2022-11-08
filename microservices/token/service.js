@@ -10,7 +10,7 @@ const Logger = require('./assets/utils/logger');
 // Create the logger
 const logger = new Logger("token");
 
-logger.log("Booting up token microservice...");
+logger.log("Booting up microservice...");
 
 // Load environment variables from .env file and creating the service
 const service = express();
