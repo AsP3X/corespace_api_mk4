@@ -70,13 +70,14 @@ const apiRouteKeys = Object.keys(apiRoutes)
 logger.info(`Found ${apiRouteKeys.length} routes`);
 logger.log("Beginnig to load routes...");
 
-apiRouteKeys.forEach(key => {
-  const routePath = path.join(ROUTES_PATH, apiRoutes[key]);
-  const routeName = `${apiRoutes[key]}`;
+apiRoutes.forEach(route => {
+  const routePath = path.join(ROUTES_PATH, route);
+  const routeName = route.replace('.js', '');
   const routeHandler = require(routePath);
   service.use(`/${routeName}`, routeHandler);
 });
-logger.success("Route loading complete!");
+
+logger.success("Routes loading complete!");
 // -;-
 
 service.use((error, req, res, next) => {
