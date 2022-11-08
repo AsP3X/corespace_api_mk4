@@ -1,9 +1,0 @@
-{
-  "name": "notifications",
-  "version": "1.0.0",
-  "description": "notification service for the corespace api",
-  "main": "service.js",
-  "author": "AsP3X",
-  "license": "MIT",
-  "private": false
-}
