@@ -8,7 +8,7 @@ const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
 
 // Create the logger
-const logger = new Logger("token");
+const logger = new Logger("userdata");
 
 logger.log("Booting up token microservice...");
 
