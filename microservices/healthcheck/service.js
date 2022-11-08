@@ -10,7 +10,7 @@ const Logger = require('./assets/utils/logger');
 // Create the logger
 const logger = new Logger("healthcheck");
 
-logger.info("Booting up healthcheck microservice...");
+logger.log("Booting up healthcheck microservice...");
 
 // Load environment variables from .env file and creating the service
 const service = express();
@@ -28,7 +28,7 @@ let RunMode = 'dev';
 // #############################################################################
 // ##################          Load all Middlewares ############################
 // #############################################################################
-logger.info("Loading middlewares...");
+logger.log("Loading middlewares...");
 // Add middleware to parse the body of the request
 service.use(express.json());
 service.use(express.urlencoded({ extended: true }));
@@ -46,6 +46,18 @@ service.use((req, res, next) => {
 
   next();
 });
+// -;-
+
+// #############################################################################
+// ##################       Service Request Log      ###########################
+// #############################################################################
+
+service.use((req, res, next) => {
+  headers = req.headers;
+  reqMessage = `Request: ${req.method} ${req.originalUrl} + ${JSON.stringify(headers)}`;
+  logger.request(reqMessage);
+  next();
+});
 
 // -;-
 
@@ -55,17 +67,10 @@ service.use((req, res, next) => {
 const apiRoutes = getAllRoutes(ROUTES_PATH);
 const apiRouteKeys = Object.keys(apiRoutes)
 
-logger.warn(`Found ${apiRouteKeys.length} routes`);
-logger.info("Beginnig to load routes...");
+logger.info(`Found ${apiRouteKeys.length} routes`);
+logger.log("Beginnig to load routes...");
 
 apiRouteKeys.forEach(key => {
-  // const subRoutes = apiRoutes[key];
-  // subRoutes.forEach(route => {
-  //   const routePath = path.join(ROUTES_PATH, key, route);
-  //   const routeName = `${key}`;
-  //   const routeHandler = require(routePath);
-  //   service.use(`/${routeName}`, routeHandler);
-  // })
   const routePath = path.join(ROUTES_PATH, apiRoutes[key]);
   const routeName = `${apiRoutes[key]}`;
   const routeHandler = require(routePath);
@@ -85,5 +90,5 @@ service.use((error, req, res, next) => {
 });
 
 service.listen(PORT || 3000, () => {
-  logger.info(`running on port ${PORT}`);
+  logger.log(`running on port ${PORT}`);
 });
