@@ -1,0 +1,9 @@
+{
+  "name": "register",
+  "version": "1.0.0",
+  "description": "register service for the corespace api",
+  "main": "service.js",
+  "author": "AsP3X",
+  "license": "MIT",
+  "private": false
+}

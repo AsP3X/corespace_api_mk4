@@ -1,0 +1,9 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "login service for the corespace api",
+  "main": "service.js",
+  "author": "AsP3X",
+  "license": "MIT",
+  "private": false
+}
