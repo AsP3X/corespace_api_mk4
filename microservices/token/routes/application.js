@@ -4,7 +4,7 @@ const express = require('express');
 const Logger = require('../assets/utils/logger');
 const { tokenGenerator } = require('../assets/token/generator');
 const { IdentGen } = require('../assets/token/generator');
-const { validateToken } = require('../assets/token/generator');
+const { TokenVerifier } = require('../assets/token/generator');
 
 // Create the logger
 const logger = new Logger("token/application");
