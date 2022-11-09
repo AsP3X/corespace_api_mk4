@@ -3,7 +3,7 @@ const JWT = require('jsonwebtoken');
 class tokenGenerator {
     constructor(id) {
       this.id = id;
-      this.expiresIn;
+      this.expiresAt = null;
       this.token = {};
     }
 
@@ -19,7 +19,7 @@ class tokenGenerator {
       // create a string with the date and time the token will expire (1 hour)
       const date = new Date();
       date.setHours(date.getHours() + 1);
-      this.expiresIn = date;
+      this.expiresAt = date;
     }
 
     /**
@@ -34,7 +34,7 @@ class tokenGenerator {
       // create a string with the date and time the token will expire (1 hour)
       const date = new Date();
       date.setHours(date.getHours() + 1);
-      this.expiresIn = date;
+      this.expiresAt = date;
     }
 
     /**
@@ -53,7 +53,7 @@ class tokenGenerator {
       return {
         id: this.id,
         token: this.token,
-        expiresIn: this.expiresIn,
+        expiresAt: this.expiresIn,
       };
     }
 }
