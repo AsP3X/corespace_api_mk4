@@ -65,16 +65,17 @@ class tokenGenerator {
  * @returns {string} - The generated identifier
  */
 class IdentGen {
-  constructor() {
+  constructor(origin) {
+    this.origin = origin;
     this.identifier = '';
   }
 
   application() {
-    this.identifier = `app_token_${Math.floor(Math.random() * 1000000)}`;
+    this.identifier = `${this.origin}_token_${Math.floor(Math.random() * 1000000)}`;
   }
 
   user() {
-    this.identifier = `user_token_${Math.floor(Math.random() * 1000000)}`;
+    this.identifier = `${this.origin}_token_${Math.floor(Math.random() * 1000000)}`;
   }
 
   get() {

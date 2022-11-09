@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
       message: "Missing application name"
     });
   } else {
-    const identGen = new IdentGen();
+    const identGen = new IdentGen(application);
     identGen.application();
     const id = identGen.get();
 
