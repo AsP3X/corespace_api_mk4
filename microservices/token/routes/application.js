@@ -41,6 +41,7 @@ router.post("/", (req, res) => {
       message: "Application token created",
       identifier: token.id,
       token: token.token
+      expiresAt: token.expiresIn
     });
   }
 });
