@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "dev": "nodemon service.js development",
+    "dev": "nodemon service.js",
     "start": "node service.js production"
   },
   "devDependencies": {
