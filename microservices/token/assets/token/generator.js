@@ -37,10 +37,18 @@ class tokenGenerator {
       this.expiresIn = date;
     }
 
+    /**
+     * Set the tokens identifier
+     * @param {String} id - The unique identifier for the user 
+     */
     set(id) {
       this.id = id;
     }
 
+    /**
+     * Get the tokens identifier
+     * @returns {String} - The unique identifier for the user
+     */
     get() {
       return {
         id: this.id,
@@ -52,6 +60,9 @@ class tokenGenerator {
 
 /**
  * Generate a Identifier either for a user or an application
+ * @application - Generate an identifier for an application
+ * @user - Generate an identifier for a user
+ * @returns {string} - The generated identifier
  */
 class IdentGen {
   constructor() {
