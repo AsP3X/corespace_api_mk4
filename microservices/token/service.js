@@ -74,7 +74,7 @@ apiRoutes.forEach(route => {
   const routePath = path.join(ROUTES_PATH, route);
   const routeName = route.replace('.js', '');
   const routeHandler = require(routePath);
-  service.use(`/${routeName}`, routeHandler);
+  service.use(`/token/${routeName}`, routeHandler);
 });
 
 logger.success("Routes loading complete!");
