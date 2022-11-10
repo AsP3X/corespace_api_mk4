@@ -14,6 +14,7 @@ const router = express.Router();
 // Create the root product route
 router.get("/", (req, res) => {
   res.status(200).json({
+    service: "token",
     healthy: true,
     uptime: process.uptime()
   });
