@@ -8,7 +8,7 @@ const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
 
 // Create the logger
-const logger = new Logger("healthcheck");
+const logger = new Logger("testing");
 
 logger.log("Booting up microservice...");
 
@@ -74,7 +74,7 @@ apiRoutes.forEach(route => {
   const routePath = path.join(ROUTES_PATH, route);
   const routeName = route.replace('.js', '');
   const routeHandler = require(routePath);
-  service.use(`/healthcheck/${routeName}`, routeHandler);
+  service.use(`/testing/${routeName}`, routeHandler);
 });
 
 logger.success("Routes loading complete!");

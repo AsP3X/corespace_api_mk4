@@ -6,7 +6,7 @@ const fs = require('fs');
 const Logger = require('../assets/utils/logger');
 
 // Create the logger
-const logger = new Logger("token/health");
+const logger = new Logger("testing/health");
 
 // Importing router
 const router = express.Router();
@@ -14,12 +14,11 @@ const router = express.Router();
 // Create the root product route
 router.get("/", (req, res) => {
   res.status(200).json({
-    service: "token",
     healthy: true,
     uptime: process.uptime()
   });
 });
 
-logger.success("Loaded root route");
+logger.success("Loaded testing route");
 
 module.exports = router;

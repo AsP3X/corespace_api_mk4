@@ -19,6 +19,6 @@ router.get("/", (req, res) => {
   });
 });
 
-logger.success("Loaded root route");
+logger.success("Loaded self route");
 
 module.exports = router;
