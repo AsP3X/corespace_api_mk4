@@ -1,0 +1,15 @@
+{
+    "vscord.enabled": true,
+    "editor.tabSize": 2,
+    "editor.tabCompletion": "onlySnippets",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true
+      },
+      "editor.autoClosingDelete": "never",
+      "editor.bracketPairColorization.independentColorPoolPerBracketType": true
+}
