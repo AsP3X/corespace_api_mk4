@@ -1,6 +1,6 @@
 const fs = require('fs');
+const paraMap = require('parametermapper');
 
-const paraMap = require('./assets/utils/parameterMapper');
 const randomNum = require('./assets/utils/randomNum');
 
 const args = process.argv.slice(2);

@@ -516,6 +516,11 @@ on-finished@2.4.1:
   dependencies:
     ee-first "1.1.1"
 
+parametermapper@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/parametermapper/-/parametermapper-1.1.1.tgz#264d617ea885f2e0fee9a2b127b9ccbcbd696f38"
+  integrity sha512-Q8rjq3NS7TtbQsTXvKmpddHfilzvZ7lx/9kynWRZRefWd9MEWvZ72Dc5VZKZphRno9Mx0EORgLt1fDjGDkHLhQ==
+
 parseurl@~1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
