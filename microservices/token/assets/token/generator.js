@@ -1,5 +1,8 @@
 const JWT = require('jsonwebtoken');
 
+// Import custom modules
+const randomNum = require('../utils/randomNum');
+
 class tokenGenerator {
     constructor(id) {
       this.id = id;
@@ -71,11 +74,11 @@ class IdentGen {
   }
 
   application() {
-    this.identifier = `${this.origin}_token_${Math.floor(Math.random() * 1000000)}`;
+    this.identifier = `${this.origin}_token_${Math.floor(randomNum.generateInRange(1000000, 9999999))}`;
   }
 
   user() {
-    this.identifier = `${this.origin}_token_${Math.floor(Math.random() * 1000000)}`;
+    this.identifier = `${this.origin}_token_${Math.floor(randomNum.generateInRange(1000000, 9999999))}`;
   }
 
   get() {
