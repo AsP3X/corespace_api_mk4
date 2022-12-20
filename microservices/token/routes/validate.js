@@ -22,23 +22,24 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const { token, indentifier } = req.body;
+  const token = req.body.token;
+  const identifier = req.body.identifier;
   logger.info("Received request to validate a token");
 
-  if (!token || !indentifier) {
+  if (!token || !identifier) {
     res.status(400).send({
       message: "Missing token or identifier"
     });
   } else {
     const tokenVerifier = new TokenVerifier(token);
-    tokenVerifier.setId(indentifier);
+    tokenVerifier.setId(identifier);
     tokenVerifier.validate();
 
     const result = tokenVerifier.get();
 
     res.send({
       message: "Token validation result",
-      identifier: indentifier,
+      identifier: identifier,
       token: token,
       valid: result
     });
