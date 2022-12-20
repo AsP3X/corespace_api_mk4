@@ -1,3 +1,4 @@
+const htmlEscape = require('html-escape');
 const express = require('express');
 
 // Loading custom modules
@@ -37,10 +38,14 @@ router.post("/", (req, res) => {
 
     const result = tokenVerifier.get();
 
+    // Encode the user input before sending it back in the response
+    const encodedIdentifier = htmlEscape(identifier);
+    const encodedToken = htmlEscape(token);
+
     res.send({
       message: "Token validation result",
-      identifier: identifier,
-      token: token,
+      identifier: encodedIdentifier,
+      token: encodedToken,
       valid: result
     });
   }
