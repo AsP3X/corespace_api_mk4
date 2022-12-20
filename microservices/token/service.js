@@ -22,7 +22,6 @@ const args = process.argv.slice(2);
 // Load configuration
 const PORT = process.env.PORT || 3000;
 const ROUTES_PATH = path.join(__dirname, `routes`);
-let RunMode = 'dev';
 
 
 // #############################################################################
