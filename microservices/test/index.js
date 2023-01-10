@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const {DBConnector, DataManager} = require('./DBManager');
 
 const userSchema = new mongoose.Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   username: { type: String, required: true },
   password: { type: String, required: true },
   email: { type: String, required: true }
@@ -24,6 +25,7 @@ dbc.attemptConnection()
   });
 
 dm.create({
+  _id: new mongoose.Types.ObjectId(),
   username: "John Doe",
   email: "test@test.test",
   password: "test"
