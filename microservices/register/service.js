@@ -6,9 +6,11 @@ const fs = require('fs');
 // Loading custom modules
 const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
+const {DBConnector, DBManager} = require('./assets/database/DBManager');
 
 // Create the logger
 const logger = new Logger("register");
+const dbc = new DBConnector();
 
 logger.log("Booting up microservice...");
 
@@ -23,6 +25,18 @@ const args = process.argv.slice(2);
 const PORT = process.env.PORT || 3000;
 const ROUTES_PATH = path.join(__dirname, `routes`);
 let RunMode = 'dev';
+
+// Starting connection to the database
+logger.log("Starting connection to the database...");
+dbc.createAUrl();
+dbc.attemptConnection()
+  .then(() => {
+    logger.info("Connection succeeded");
+  })
+  .catch((error) => {
+    logger.log("Connection failed");
+    logger.error(error);
+  });
 
 
 // #############################################################################
