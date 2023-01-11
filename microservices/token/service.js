@@ -6,9 +6,11 @@ const fs = require('fs');
 // Loading custom modules
 const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
+const {DBConnector, DBManager} = require('./assets/database/DBManager');
 
 // Create the logger
 const logger = new Logger("token");
+const dbc = new DBConnector();
 
 logger.log("Booting up microservice...");
 
@@ -16,12 +18,27 @@ logger.log("Booting up microservice...");
 const service = express();
 dotenv.config();
 
+// Load models
+const Service = require('./assets/models/service');
+
 // get run arguments
 const args = process.argv.slice(2);
 
 // Load configuration
 const PORT = process.env.PORT || 3000;
 const ROUTES_PATH = path.join(__dirname, `routes`);
+
+// Starting connection to the database
+dbc.createAUrl();
+logger.log(`Starting connection to the database...`);
+dbc.attemptConnection()
+  .then(() => {
+    logger.success("Database connection succeeded");
+  })
+  .catch((error) => {
+    logger.log("Database connection failed");
+    logger.error(error);
+  });
 
 
 // #############################################################################
