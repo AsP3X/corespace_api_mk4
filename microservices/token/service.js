@@ -6,7 +6,7 @@ const fs = require('fs');
 // Loading custom modules
 const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
-const {DBConnector, DBManager} = require('./assets/database/DBManager');
+const {DBConnector} = require('./assets/database/DBManager');
 
 // Create the logger
 const logger = new Logger("token");
@@ -27,19 +27,6 @@ const args = process.argv.slice(2);
 // Load configuration
 const PORT = process.env.PORT || 3000;
 const ROUTES_PATH = path.join(__dirname, `routes`);
-
-// Starting connection to the database
-dbc.createAUrl();
-logger.log(`Starting connection to the database...`);
-dbc.attemptConnection()
-  .then(() => {
-    logger.success("Database connection succeeded");
-  })
-  .catch((error) => {
-    logger.log("Database connection failed");
-    logger.error(error);
-  });
-
 
 // #############################################################################
 // ##################          Load all Middlewares ############################
@@ -87,10 +74,20 @@ logger.info(`Found ${apiRouteKeys.length} routes`);
 logger.log("Beginnig to load routes...");
 
 apiRoutes.forEach(route => {
+  logger.log(`Loading route: ${route}`);
+
   const routePath = path.join(ROUTES_PATH, route);
   const routeName = route.replace('.js', '');
+
+  // load route classes
   const routeHandler = require(routePath);
-  service.use(`/token/${routeName}`, routeHandler);
+  const routeInstance = new routeHandler();
+
+  // load route methods
+  routeInstance.load();
+
+  // add route to service
+  service.use(`/token/${routeName}`, routeInstance.router);
 });
 
 logger.success("Routes loading complete!");
