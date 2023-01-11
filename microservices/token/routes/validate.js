@@ -5,52 +5,60 @@ const express = require('express');
 const Logger = require('../assets/utils/logger');
 const { TokenVerifier } = require('../assets/token/validator');
 
-// Create the logger
-const logger = new Logger("token/application");
+class Validate {
+  constructor() {
+    this.logger = new Logger("token/health");
+    this.router = express.Router();
+  }
 
-// Importing router
-const router = express.Router();
-
-// Create the root product route
-router.get("/", (req, res) => {
-  res.send({
-    message: "Validate a token by sending a POST request to /validate",
-    accepted: [
-      "user",
-      "application"
-    ]
-  })
-});
-
-router.post("/", (req, res) => {
-  const token = req.body.token;
-  const identifier = req.body.identifier;
-  logger.info("Received request to validate a token");
-
-  if (!token || !identifier) {
-    res.status(400).send({
-      message: "Missing token or identifier"
-    });
-  } else {
-    const tokenVerifier = new TokenVerifier(token);
-    tokenVerifier.setId(identifier);
-    tokenVerifier.validate();
-
-    const result = tokenVerifier.get();
-
-    // Encode the user input before sending it back in the response
-    const encodedIdentifier = htmlEscape(identifier);
-    const encodedToken = htmlEscape(token);
-
-    res.send({
-      message: "Token validation result",
-      identifier: encodedIdentifier,
-      token: encodedToken,
-      valid: result
+  rootRoute() {
+    this.router.get("/", (req, res) => {
+      res.send({
+        message: "Validate a token by sending a POST request to /validate",
+        accepted: [
+          "user",
+          "application"
+        ]
+      })
     });
   }
-});
 
-logger.success("Loaded application route");
+  rootPostRoute() {
+    this.router.post("/", (req, res) => {
+      const token = req.body.token;
+      const identifier = req.body.identifier;
+      this.logger.info("Received request to validate a token");
+    
+      if (!token || !identifier) {
+        res.status(400).send({
+          message: "Missing token or identifier"
+        });
+      } else {
+        const tokenVerifier = new TokenVerifier(token);
+        tokenVerifier.setId(identifier);
+        tokenVerifier.validate();
+    
+        const result = tokenVerifier.get();
+    
+        // Encode the user input before sending it back in the response
+        const encodedIdentifier = htmlEscape(identifier);
+        const encodedToken = htmlEscape(token);
+    
+        res.send({
+          message: "Token validation result",
+          identifier: encodedIdentifier,
+          token: encodedToken,
+          valid: result
+        });
+      }
+    });
+  }
 
-module.exports = router;
+  load() {
+    this.rootRoute();
+    this.rootPostRoute();
+    this.logger.success("Loaded root route successfully");
+  }
+}
+
+module.exports = Validate;
