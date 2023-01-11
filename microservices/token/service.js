@@ -6,11 +6,9 @@ const fs = require('fs');
 // Loading custom modules
 const getAllRoutes = require('./assets/utils/getAllRoutes');
 const Logger = require('./assets/utils/logger');
-const {DBConnector} = require('./assets/database/DBManager');
 
 // Create the logger
 const logger = new Logger("token");
-const dbc = new DBConnector();
 
 logger.log("Booting up microservice...");
 
@@ -93,15 +91,15 @@ apiRoutes.forEach(route => {
 logger.success("Routes loading complete!");
 // -;-
 
-service.use((error, req, res, next) => {
-  res.status(error.status || 500);
-  res.json({
-    error: {
-      message: error.message,
-      status: (error.status || 500)
-    }
-  });
-});
+// service.use((error, req, res, next) => {
+//   res.status(error.status || 500);
+//   res.json({
+//     error: {
+//       message: error.message,
+//       status: (error.status || 500)
+//     }
+//   });
+// });
 
 service.listen(PORT || 3000, () => {
   logger.log(`running on port ${PORT}`);
