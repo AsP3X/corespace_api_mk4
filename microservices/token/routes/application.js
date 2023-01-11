@@ -42,13 +42,21 @@ class Validate {
     const dbm = new DataManager(this.dbc, TokenModel);
 
     this.router.post("/", (req, res) => {
-      const { application } = req.body;
+      const { application, ownerID } = req.body;
       this.logger.info("Received request to create a application token");
 
       if (!application) {
         res.status(400).send({
           message: "Missing application name"
         });
+        return;
+      }
+
+      if (!ownerID) {
+        res.status(500).send({
+          message: "Missing owner ID, access denied"
+        });
+        return;
       }
 
       const tgen = new TokenGenerator("application", { application });
@@ -58,6 +66,7 @@ class Validate {
       dbm.create({
         _id: new mongoose.Types.ObjectId(),
         name: application,
+        owner: ownerID,
         token: token,
         description: "Application token",
         status: "created",
@@ -67,6 +76,7 @@ class Validate {
         res.send({
           message: "Application token created",
           indentifier: result.id,
+          owner: result.owner,
           token: result.token,
           status: result.status,
         });
@@ -80,11 +90,51 @@ class Validate {
     });
   }
 
+  getTokenRoute() {
+    const dbm = new DataManager(this.dbc, TokenModel);
+
+    this.router.get(`/getToken/`, (req, res) => {
+      const { indentifier, ownerID } = req.body;
+      if (!ownerID || !indentifier) {
+        res.status(500).send({
+          message: "Missing owner ID or indentifier, access denied"
+        });
+        return;
+      }
+
+      this.logger.info(`Received request to get token with indentifier ${indentifier}`);
+
+      dbm.read({ _id: indentifier })
+        .then((result) => {
+          if (result.length === 0) {
+            this.logger.log("Token not found");
+            res.status(404).send({
+              message: "Token not found"
+            });
+          } else {
+            this.logger.log("Token found");
+            res.send({
+              message: "Token found",
+              token: result[0].token,
+              status: result[0].status
+            });
+          }
+        })
+        .catch((error) => {
+          this.logger.error(error);
+          res.status(500).send({
+            message: "An error occurred while getting the token",
+            error: error
+          });
+        });
+    });
+  }
+
   load() {
     this.dbConnection();
     this.rootRoute();
     this.tokenGeneratorRoute()
-    this.logger.success("Loaded root (get/post) route successfully");
+    this.getTokenRoute();
   }
 }
 
